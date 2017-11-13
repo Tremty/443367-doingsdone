@@ -107,8 +107,14 @@ $days_until_deadline = null;
 
                     <label class="checkbox">
                         <a href="/">
+                            <?php
+                            if ($show_complete_tasks == 1) {
+                                print("<input class='checkbox__input visually-hidden' type='checkbox' checked>");
+                            } else {
+                                print("<input class='checkbox__input visually-hidden' type='checkbox'>");
+                            }
+                            ?>
                             <!--добавить сюда аттрибут "checked", если переменная $show_complete_tasks равна единице-->
-                            <input class="checkbox__input visually-hidden" type="checkbox">
                             <span class="checkbox__text">Показывать выполненные</span>
                         </a>
                     </label>
@@ -131,21 +137,26 @@ $days_until_deadline = null;
                     </tr>
 
                     <!--показывать следующий тег <tr/>, если переменная равна единице-->
-                    <tr class="tasks__item task task--completed">
-                        <td class="task__select">
-                            <label class="checkbox task__checkbox">
-                                <input class="checkbox__input visually-hidden" type="checkbox" checked>
-                                <a href="/"><span class="checkbox__text">Сделать главную страницу Дела в порядке</span></a>
-                            </label>
+                    <?php
+                    if ($show_complete_tasks == 1) {
+                        print("<tr class=\"tasks__item task task--completed\">
+                            <td class=\"task__select\">
+                                <label class=\"checkbox task__checkbox\">
+                                    <input class=\"checkbox__input visually-hidden\" type=\"checkbox\" checked>
+                                    <a href=\"/\"><span class=\"checkbox__text\">Сделать главную страницу Дела в порядке</span></a>
+                                </label>
 
-                        </td>
+                            </td>
 
-                        <td class="task__file">
-                            <a class="download-link" href="#">Home.psd</a>
-                        </td>
+                            <td class=\"task__file\">
+                                <a class=\"download-link\" href=\"#\">Home.psd</a>
+                            </td>
 
-                        <td class="task__date"><!--выведите здесь дату выполнения задачи--></td>
-                    </tr>
+                            <td class=\"task__date\"><!--выведите здесь дату выполнения задачи--></td>
+                        </tr>");
+                    }
+                    ?>
+
                 </table>
             </main>
         </div>
