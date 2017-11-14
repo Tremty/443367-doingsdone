@@ -10,10 +10,10 @@ $task_deadline_ts = strtotime("+" . $days . " day midnight"); // метка вр
 $current_ts = strtotime('now midnight'); // текущая метка времени
 
 // запишите сюда дату выполнения задачи в формате дд.мм.гггг
-$date_deadline = null;
+$date_deadline = date("d.m.Y", $task_deadline_ts);
 
 // в эту переменную запишите кол-во дней до даты задачи
-$days_until_deadline = null;
+$days_until_deadline = $task_deadline_ts - time();
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -107,13 +107,11 @@ $days_until_deadline = null;
 
                     <label class="checkbox">
                         <a href="/">
-                            <?php
-                            if ($show_complete_tasks == 1) {
-                                print("<input class='checkbox__input visually-hidden' type='checkbox' checked>");
-                            } else {
-                                print("<input class='checkbox__input visually-hidden' type='checkbox'>");
-                            }
-                            ?>
+                            <?php if ($show_complete_tasks == 1) : ?>
+                            <input class='checkbox__input visually-hidden' type='checkbox' checked>
+                            <?php else: ?>
+                            <input class='checkbox__input visually-hidden' type='checkbox'>
+                            <?php endif; ?>
                             <!--добавить сюда аттрибут "checked", если переменная $show_complete_tasks равна единице-->
                             <span class="checkbox__text">Показывать выполненные</span>
                         </a>
@@ -122,7 +120,9 @@ $days_until_deadline = null;
 
                 <table class="tasks">
 <!--                    Добавьте класс task--important, если до выполнения задачи меньше дня-->
-                    <tr class="tasks__item task">
+                    <?php if ($days_until_deadline <= 86400) : ?>
+                    <tr class="tasks__item task task--important">
+                    <?php endif; ?>
                         <td class="task__select">
                             <label class="checkbox task__checkbox">
                                 <input class="checkbox__input visually-hidden" type="checkbox">
@@ -133,29 +133,27 @@ $days_until_deadline = null;
                         <td class="task__file">
                         </td>
 
-                        <td class="task__date"><!-- Здесь вывести содержимое переменной $date_deadline --></td>
+                        <td class="task__date"><?=$date_deadline; ?><!-- Здесь вывести содержимое переменной $date_deadline --></td>
                     </tr>
 
                     <!--показывать следующий тег <tr/>, если переменная равна единице-->
-                    <?php
-                    if ($show_complete_tasks == 1) {
-                        print("<tr class=\"tasks__item task task--completed\">
-                            <td class=\"task__select\">
-                                <label class=\"checkbox task__checkbox\">
-                                    <input class=\"checkbox__input visually-hidden\" type=\"checkbox\" checked>
-                                    <a href=\"/\"><span class=\"checkbox__text\">Сделать главную страницу Дела в порядке</span></a>
+                    <?php if ($show_complete_tasks == 1) : ?>
+                        <tr class="tasks__item task task--completed">
+                            <td class="task__select">
+                                <label class="checkbox task__checkbox">
+                                    <input class="checkbox__input visually-hidden" type="checkbox" checked>
+                                    <a href="/"><span class="checkbox__text">Сделать главную страницу Дела в порядке</span></a>
                                 </label>
 
                             </td>
 
-                            <td class=\"task__file\">
-                                <a class=\"download-link\" href=\"#\">Home.psd</a>
+                            <td class="task__file">
+                                <a class="download-link" href="#">Home.psd</a>
                             </td>
 
-                            <td class=\"task__date\"><!--выведите здесь дату выполнения задачи--></td>
-                        </tr>");
-                    }
-                    ?>
+                            <td class="task__date"><!--выведите здесь дату выполнения задачи--></td>
+                        </tr>
+                    <?php endif; ?>
 
                 </table>
             </main>
