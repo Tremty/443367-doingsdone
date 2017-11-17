@@ -57,6 +57,20 @@ $tasks = [
     ]
 ];
 
+function getTasksCount($all_tasks_arr, $category_title) {
+    $tasks_count = 0;
+    if ($category_title == "Все") {
+        $tasks_count = count($all_tasks_arr);
+    } else {
+        foreach ($all_tasks_arr as $key => $value) {
+            if ($category_title == $value['category']) {
+                $tasks_count = $tasks_count + 1;
+            }
+        }
+    }
+    return $tasks_count;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -102,17 +116,17 @@ $tasks = [
                 <nav class="main-navigation">
                     <ul class="main-navigation__list">
                         <?php foreach ($projects as $key => $value): ?>
-                            <?php if (array_search($value, $projects) == 0) : ?>
+                            <?php if ($key == 0) : ?>
                                 <li class="main-navigation__list-item main-navigation__list-item--active">
-                                    <a class="main-navigation__list-item-link" href="<?=$value; ?>"><?=$value; ?></a>
-                                    <span class="main-navigation__list-item-count">24</span>
-                                </li>
                             <?php else: ?>
                                 <li class="main-navigation__list-item">
-                                    <a class="main-navigation__list-item-link" href="<?=$value; ?>"><?=$value; ?></a>
-                                    <span class="main-navigation__list-item-count">24</span>
-                                </li>
                             <?php endif; ?>
+                                    <a class="main-navigation__list-item-link" href="<?=$value; ?>"><?=$value; ?></a>
+                                    <span class="main-navigation__list-item-count">
+                                        <?php print(getTasksCount($tasks, $value)); ?>
+
+                                    </span>
+                                </li>
                         <?php endforeach; ?>
                     </ul>
                 </nav>
