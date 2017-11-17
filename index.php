@@ -123,7 +123,9 @@ function getTasksCount($all_tasks_arr, $category_title) {
                             <?php endif; ?>
                                     <a class="main-navigation__list-item-link" href="<?=$value; ?>"><?=$value; ?></a>
                                     <span class="main-navigation__list-item-count">
-                                        <?php print(getTasksCount($tasks, $value)); ?>
+                                        <?php
+                                        print(getTasksCount($tasks, $value));
+                                        ?>
 
                                     </span>
                                 </li>
