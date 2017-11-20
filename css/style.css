@@ -496,6 +496,7 @@ a:focus {
 
 .tasks {
   width: 100%;
+  margin-bottom: 50px;
 
   border-collapse: collapse;
 }
