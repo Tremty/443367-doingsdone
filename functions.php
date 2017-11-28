@@ -18,10 +18,11 @@ function renderTemplate($path, $pageData) {
         ob_start();
         extract($pageData);
         require_once($path);
-        return $full_html = ob_get_clean();
+        $full_html = ob_get_clean();
     } else {
-        return $full_html = "";
+        $full_html = "";
     }
+    return $full_html;
 }
 
 ?>
