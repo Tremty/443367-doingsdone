@@ -42,12 +42,12 @@
                 <nav class="main-navigation">
                     <ul class="main-navigation__list">
                         <?php foreach ($projects as $key => $value): ?>
-                            <?php if ($key == 0) : ?>
+                            <?php if ($key == $project_id) : ?>
                                 <li class="main-navigation__list-item main-navigation__list-item--active">
                             <?php else: ?>
                                 <li class="main-navigation__list-item">
                             <?php endif; ?>
-                                    <a class="main-navigation__list-item-link" href="<?=htmlspecialchars($value); ?>"><?=htmlspecialchars($value); ?></a>
+                                    <a class="main-navigation__list-item-link" href="<?="?project=$key"; ?>"><?=htmlspecialchars($value); ?></a>
                                     <span class="main-navigation__list-item-count">
                                         <?=getTasksCount($tasks, htmlspecialchars($value)); ?>
                                     </span>
